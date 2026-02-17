@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jihan Lahmar | Analytics & Risk Modeling</title>
+  <style>
+    /* === RESET & BASE === */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: "Georgia", "Times New Roman", serif;
+      background: #0a0a0a;
+      color: #ffffff;
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+    
+    /* === ATMOSPHERIC BACKGROUND === */
+    .bg-layer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+    .bg-gradient {
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(40,40,40,0.8) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(30,30,30,0.9) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+    }
+    .bg-noise {
+      opacity: 0.03;
+      background-image: url("image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+    
+    /* === LAYOUT === */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    
+    /* === TYPOGRAPHY === */
+    a {
+      color: #ffffff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.3s ease;
+    }
+    a:hover {
+      border-bottom-color: #ffffff;
+      opacity: 0.8;
+    }
+    .sans {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.95em;
+      letter-spacing: 0.01em;
+    }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, "Menlo", monospace;
+      font-size: 0.85em;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    /* === PROFILE PHOTO === */
+    .photo-container {
+      text-align: center;
+      margin: 0 0 2.5rem;
+    }
+    .profile-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .profile-photo:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border-color: rgba(255,255,255,0.4);
+    }
+    
+    /* === HEADER === */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.5rem;
+    }
+    .tagline {
+      color: rgba(255,255,255,0.6);
+      font-size: 1.1rem;
+      font-style: italic;
+      margin: 0 0 1.5rem;
+    }
+    .badges {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+    .badge {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 4px 12px;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    
+    /* === SECTIONS === */
+    section {
+      margin: 2.5rem 0;
+      padding: 2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    section:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+    h2 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin: 0 0 1.25rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 0.75rem;
+    }
+    p { margin: 0.75rem 0; }
+    ul {
+      margin: 0.75rem 0 0.75rem 1.5rem;
+      padding: 0;
+    }
+    li {
+      margin: 0.6rem 0;
+      color: rgba(255,255,255,0.9);
+    }
+    
+    /* === FOOTER === */
+    footer {
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.85em;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* === MOBILE === */
+    @media (max-width: 600px) {
+      .container { padding: 3rem 1.5rem; }
+      h1 { font-size: 1.85rem; }
+      .profile-photo { width: 90px; height: 90px; }
+      section { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BACKGROUND -->
+  <div class="bg-layer bg-gradient"></div>
+  <div class="bg-layer bg-noise"></div>
+
+  <!-- CONTENT -->
+  <div class="container">
+
+    <!-- HEADER -->
+    <header>
+      <div class="photo-container">
+        <img 
+          src="https://github.com/jihanlahmar.png" 
+          alt="Jihan Lahmar" 
+          class="profile-photo"
+          onerror="this.style.display='none'"
+        />
+      </div>
+      <h1>Jihan Lahmar</h1>
+      <p class="tagline">Analytics & Risk Modeling</p>
+      <div class="badges sans">
+        <span class="badge">Morocco → Gulf</span>
+        <span class="badge">Python</span>
+        <span class="badge">On-Demand</span>
+      </div>
+    </header>
+
+    <!-- WORK -->
+    <section>
+      <h2 class="sans">Featured Project</h2>
+      <p style="font-size:1.1rem;margin-bottom:0.75rem"><strong>Monte Carlo Port Risk Simulator</strong></p>
+      <p class="sans" style="color:rgba(255,255,255,0.6)">
+        30-day Value-at-Risk modeling for Morocco-Gulf trade exposures using Geometric Brownian Motion.
+      </p>
+      <ul class="sans">
+        <li><a href="https://github.com/jihanlahmar/morocco-gulf-alpha" target="_blank">View code on GitHub</a></li>
+        <li class="mono" style="margin-top:1rem">pip install -r requirements.txt && python monte_carlo_port.py</li>
+      </ul>
+    </section>
+
+    <!-- SERVICES -->
+    <section>
+      <h2 class="sans">Engagement</h2>
+      <ul class="sans">
+        <li>Paid pilot: 1 brief/week × 4 weeks</li>
+        <li>Deliverable: PDF + code + walkthrough</li>
+        <li>Focus: Port logistics & commodity risk</li>
+        <li style="color:rgba(255,255,255,0.5);margin-top:0.75rem">No free work • No branding • Decision-ready only</li>
+      </ul>
+    </section>
+
+    <!-- CONTACT -->
+    <section>
+      <h2 class="sans">Contact</h2>
+      <ul class="sans" style="margin-left:0">
+        <li><a href="mailto:jihan.lahmar@protonmail.com">jihan.lahmar@protonmail.com</a></li>
+        <li><a href="https://linkedin.com/in/jihanlahmar" target="_blank">LinkedIn</a></li>
+        <li class="mono" style="margin-top:0.75rem">Signal available on request</li>
+      </ul>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="sans">
+      <p>Last updated: <span id="date"></span></p>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('date').textContent = new Date().toISOString().split('T')[0];
+  </script>
+
+</body>
+</html>
