@@ -20,11 +20,8 @@
       --shadow-soft: 0 4px 24px rgba(0,0,0,0.4);
       --shadow-glow: 0 0 40px rgba(201,169,89,0.1);
     }
-
-    /* === RESET & BASE === */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    
     body {
       font-family: "Georgia", "Times New Roman", serif;
       background: var(--bg-deep);
@@ -33,8 +30,6 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-
-    /* === ATMOSPHERIC BACKGROUND === */
     .bg-layer {
       position: fixed;
       top: 0; left: 0;
@@ -52,20 +47,11 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       animation: noiseShift 20s ease infinite;
     }
-    @keyframes noiseShift {
-      0%, 100% { opacity: 0.025; }
-      50% { opacity: 0.035; }
-    }
-
-    /* === SUBTLE FLOATING PARTICLES === */
+    @keyframes noiseShift { 0%, 100% { opacity: 0.025; } 50% { opacity: 0.035; } }
     .particle {
-      position: fixed;
-      width: 2px;
-      height: 2px;
-      background: var(--accent-gold);
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: float 15s ease-in-out infinite;
+      position: fixed; width: 2px; height: 2px;
+      background: var(--accent-gold); border-radius: 50%;
+      opacity: 0.3; animation: float 15s ease-in-out infinite;
     }
     .particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
     .particle:nth-child(2) { top: 60%; left: 85%; animation-delay: -5s; }
@@ -74,143 +60,75 @@
       0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
       50% { transform: translateY(-30px) translateX(15px); opacity: 0.4; }
     }
-
-    /* === LAYOUT === */
     .container {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-      position: relative;
-      z-index: 1;
+      max-width: 700px; margin: 0 auto; padding: 5rem 2rem; position: relative; z-index: 1;
     }
-
-    /* === TYPOGRAPHY === */
     a {
-      color: var(--text-primary);
-      text-decoration: none;
+      color: var(--text-primary); text-decoration: none;
       border-bottom: 1px solid var(--border-subtle);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative;
     }
-    a:hover {
-      border-bottom-color: var(--accent-gold);
-      color: var(--accent-gold);
-    }
+    a:hover { border-bottom-color: var(--accent-gold); color: var(--accent-gold); }
     a::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--accent-gold);
+      content: ''; position: absolute; bottom: -1px; left: 0;
+      width: 0; height: 1px; background: var(--accent-gold);
       transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    a:hover::after {
-      width: 100%;
-    }
+    a:hover::after { width: 100%; }
     .sans {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 0.95em;
-      letter-spacing: 0.02em;
+      font-size: 0.95em; letter-spacing: 0.02em;
     }
     .mono {
       font-family: ui-monospace, SFMono-Regular, "Menlo", monospace;
-      font-size: 0.85em;
-      color: var(--text-muted);
+      font-size: 0.85em; color: var(--text-muted);
     }
-
-    /* === PROFILE PHOTO === */
-    .photo-container {
-      text-align: center;
-      margin: 0 0 3rem;
-      position: relative;
-    }
+    .photo-container { text-align: center; margin: 0 0 3rem; position: relative; }
     .profile-photo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--border-subtle);
+      width: 120px; height: 120px; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--border-subtle);
       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      z-index: 2;
+      position: relative; z-index: 2;
     }
     .profile-photo::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
+      content: ''; position: absolute; inset: -4px; border-radius: 50%;
       border: 1px solid var(--accent-gold-dim);
       animation: pulse 3s ease-in-out infinite;
     }
     .profile-photo:hover {
       transform: translateY(-4px) scale(1.02);
-      border-color: var(--accent-gold);
-      box-shadow: var(--shadow-glow);
+      border-color: var(--accent-gold); box-shadow: var(--shadow-glow);
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.05); }
-    }
-
-    /* === HEADER === */
+    @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.05); } }
     header {
-      text-align: center;
-      margin-bottom: 4rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid var(--border-subtle);
-      animation: fadeInUp 1s ease-out;
+      text-align: center; margin-bottom: 4rem; padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border-subtle); animation: fadeInUp 1s ease-out;
     }
     h1 {
-      font-size: 2.5rem;
-      font-weight: 400;
-      letter-spacing: -0.03em;
+      font-size: 2.5rem; font-weight: 400; letter-spacing: -0.03em;
       margin: 0 0 0.75rem;
       background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .tagline {
-      color: var(--text-secondary);
-      font-size: 1.15rem;
-      font-style: italic;
-      margin: 0 0 2rem;
-      font-weight: 300;
+      color: var(--text-secondary); font-size: 1.15rem; font-style: italic;
+      margin: 0 0 2rem; font-weight: 300;
     }
-    .badges {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 2rem 0;
-    }
+    .badges { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 2rem 0; }
     .badge {
-      font-size: 0.7rem;
-      color: var(--accent-gold);
-      border: 1px solid var(--accent-gold-dim);
-      padding: 5px 14px;
-      border-radius: 3px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(201,169,89,0.05);
-      transition: all 0.3s ease;
+      font-size: 0.7rem; color: var(--accent-gold);
+      border: 1px solid var(--accent-gold-dim); padding: 5px 14px;
+      border-radius: 3px; letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(201,169,89,0.05); transition: all 0.3s ease;
     }
     .badge:hover {
-      background: rgba(201,169,89,0.1);
-      border-color: var(--accent-gold);
+      background: rgba(201,169,89,0.1); border-color: var(--accent-gold);
       transform: translateY(-2px);
     }
-
-    /* === SECTIONS === */
     section {
-      margin: 3rem 0;
-      padding: 2.5rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 6px;
-      backdrop-filter: blur(20px);
+      margin: 3rem 0; padding: 2.5rem;
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: 6px; backdrop-filter: blur(20px);
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       animation: fadeInUp 0.8s ease-out backwards;
     }
@@ -218,114 +136,61 @@
     section:nth-child(3) { animation-delay: 0.3s; }
     section:nth-child(4) { animation-delay: 0.45s; }
     section:hover {
-      transform: translateY(-3px);
-      border-color: var(--border-focus);
+      transform: translateY(-3px); border-color: var(--border-focus);
       box-shadow: var(--shadow-soft), var(--shadow-glow);
     }
     h2 {
-      font-size: 0.8rem;
-      font-weight: 500;
-      margin: 0 0 1.5rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent-gold);
-      border-bottom: 1px solid var(--border-subtle);
-      padding-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      font-size: 0.8rem; font-weight: 500; margin: 0 0 1.5rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent-gold); border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
     }
-    h2::before {
-      content: '';
-      width: 20px;
-      height: 1px;
-      background: var(--accent-gold);
-    }
+    h2::before { content: ''; width: 20px; height: 1px; background: var(--accent-gold); }
     p { margin: 1rem 0; }
-    ul {
-      margin: 1rem 0 1rem 1.5rem;
-      padding: 0;
-    }
-    li {
-      margin: 0.75rem 0;
-      color: var(--text-secondary);
-      position: relative;
-      padding-left: 0.5rem;
-    }
-    li::before {
-      content: '•';
-      color: var(--accent-gold);
-      position: absolute;
-      left: -1rem;
-    }
-
-    /* === PROJECT CARDS === */
+    ul { margin: 1rem 0 1rem 1.5rem; padding: 0; }
+    li { margin: 0.75rem 0; color: var(--text-secondary); position: relative; padding-left: 0.5rem; }
+    li::before { content: '•'; color: var(--accent-gold); position: absolute; left: -1rem; }
     .project-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border-subtle);
-      border-radius: 4px;
-      padding: 1.5rem;
-      margin: 1rem 0;
+      background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+      border-radius: 4px; padding: 1.5rem; margin: 1rem 0;
       transition: all 0.4s ease;
     }
     .project-card:hover {
-      background: rgba(255,255,255,0.04);
-      border-color: var(--accent-gold-dim);
+      background: rgba(255,255,255,0.04); border-color: var(--accent-gold-dim);
       transform: translateX(4px);
     }
     .project-card h3 {
-      font-size: 1.05rem;
-      font-weight: 500;
-      margin: 0 0 0.5rem;
-      color: var(--text-primary);
+      font-size: 1.05rem; font-weight: 500; margin: 0 0 0.5rem; color: var(--text-primary);
     }
-    .project-card p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin: 0 0 0.75rem;
-    }
+    .project-card p { font-size: 0.9rem; color: var(--text-secondary); margin: 0 0 0.75rem; }
+    .project-links { display: flex; gap: 0.75rem; margin-top: 0.75rem; flex-wrap: wrap; }
     .project-link {
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 4px 10px; border-radius: 3px; transition: all 0.3s ease;
     }
-
-    /* === FOOTER === */
+    .project-link.demo { color: #4CAF50; border: 1px solid rgba(76,175,80,0.3); }
+    .project-link.demo:hover { background: rgba(76,175,80,0.1); border-color: #4CAF50; }
+    .project-link.code { color: var(--accent-gold); border: 1px solid var(--accent-gold-dim); }
+    .project-link.code:hover { background: rgba(201,169,89,0.1); border-color: var(--accent-gold); }
     footer {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85em;
-      margin-top: 5rem;
-      padding-top: 3rem;
-      border-top: 1px solid var(--border-subtle);
+      text-align: center; color: var(--text-muted); font-size: 0.85em;
+      margin-top: 5rem; padding-top: 3rem; border-top: 1px solid var(--border-subtle);
       animation: fadeInUp 1s ease-out 0.6s backwards;
     }
     footer a { color: var(--text-muted); }
     footer a:hover { color: var(--accent-gold); }
-
-    /* === ANIMATIONS === */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
-    /* === MOBILE === */
     @media (max-width: 600px) {
       .container { padding: 3rem 1.5rem; }
       h1 { font-size: 2rem; }
       .profile-photo { width: 100px; height: 100px; }
       section { padding: 1.75rem; }
       .badges { gap: 0.5rem; }
+      .project-links { flex-direction: column; }
     }
-
-    /* === PRINT === */
     @media print {
       .bg-layer, .particle { display: none; }
       body { background: #fff; color: #000; }
@@ -334,28 +199,13 @@
   </style>
 </head>
 <body>
-
-  <!-- BACKGROUND LAYERS -->
   <div class="bg-layer bg-gradient"></div>
   <div class="bg-layer bg-noise"></div>
-  
-  <!-- SUBTLE PARTICLES -->
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-
-  <!-- MAIN CONTENT -->
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
   <div class="container">
-
-    <!-- HEADER -->
     <header>
       <div class="photo-container">
-        <img 
-          src="https://github.com/jihanlahmar.png" 
-          alt="Jihan Lahmar" 
-          class="profile-photo"
-          onerror="this.style.display='none'"
-        />
+        <img src="https://github.com/jihanlahmar.png" alt="Jihan Lahmar" class="profile-photo" onerror="this.style.display='none'" />
       </div>
       <h1>Jihan Lahmar</h1>
       <p class="tagline">Analytics & Risk Modeling for Strategic Decisions</p>
@@ -371,13 +221,27 @@
     <section>
       <h2 class="sans">Selected Work</h2>
       
+      <!-- Project #1 -->
       <div class="project-card">
         <h3>Monte Carlo Port Risk Simulator</h3>
         <p>30-day Value-at-Risk modeling for Morocco-Gulf trade exposures using Geometric Brownian Motion. 10,000 simulations. Decision-ready output.</p>
-        <a href="https://github.com/jihanlahmar/jihanlahmar/tree/main/projects/monte-carlo-port-risk" class="project-link" target="_blank">View Project →</a>
+        <div class="project-links">
+          <a href="https://jihanlahmar-monte-carlo.streamlit.app" class="project-link demo" target="_blank">🎮 Try Live Demo</a>
+          <a href="https://github.com/jihanlahmar/jihanlahmar/tree/main/projects/monte-carlo-port-risk" class="project-link code" target="_blank">💻 View Code</a>
+          <a href="briefs/tanger-med-var-2026.pdf" class="project-link code" target="_blank">📄 Download Brief (PDF)</a>
+        </div>
       </div>
       
-      <!-- Add more projects here later -->
+      <!-- Project #2 -->
+      <div class="project-card">
+        <h3>VaR Comparison Engine</h3>
+        <p>Compare Historical, Parametric & Monte Carlo VaR methods for Morocco-Gulf exposures. Decision-ready risk recommendations.</p>
+        <div class="project-links">
+          <a href="https://var-comparison-engine.streamlit.app" class="project-link demo" target="_blank">🎮 Try Live Demo</a>
+          <a href="https://github.com/jihanlahmar/jihanlahmar/tree/main/projects/var-comparison" class="project-link code" target="_blank">💻 View Code</a>
+          <a href="briefs/var-comparison-2026.pdf" class="project-link code" target="_blank">📄 Download Brief (PDF)</a>
+        </div>
+      </div>
       
     </section>
 
@@ -402,21 +266,13 @@
       </ul>
     </section>
 
-    <!-- FOOTER -->
     <footer class="sans">
-      <p>
-        Last updated: <span id="date"></span><br/>
-        <a href="https://github.com/jihanlahmar/jihanlahmar">GitHub Repository</a>
-      </p>
+      <p>Last updated: <span id="date"></span><br/>
+      <a href="https://github.com/jihanlahmar/jihanlahmar">GitHub Repository</a></p>
     </footer>
-
   </div>
-
   <script>
-    // Auto-update date
     document.getElementById('date').textContent = new Date().toISOString().split('T')[0];
-    
-    // Subtle scroll reveal for sections
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -425,7 +281,6 @@
         }
       });
     }, { threshold: 0.1 });
-    
     document.querySelectorAll('section').forEach(section => {
       section.style.opacity = '0';
       section.style.transform = 'translateY(20px)';
@@ -433,6 +288,5 @@
       observer.observe(section);
     });
   </script>
-
 </body>
 </html>
