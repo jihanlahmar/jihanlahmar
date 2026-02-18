@@ -16,7 +16,18 @@ st.markdown("*Monte Carlo Value-at-Risk modeling for strategic trade exposures*"
 
 # Sidebar controls
 st.sidebar.header("⚙️ Parameters")
-ticker = st.sidebar.text_input("Ticker Symbol", value="TASI.SR")
+ticker = st.sidebar.selectbox(
+    "Ticker Symbol",
+    [
+        "^GSPC",      # S&P 500 ✅ Best for testing
+        "MAD=X",      # Moroccan Dirham / USD 🇲🇦
+        "SAR=X",      # Saudi Riyal / USD 🇸🇦
+        "AAPL",       # Apple Inc. (test)
+        "^DFMGI",     # Dubai Financial Market
+        "EURUSD=X",   # Euro / USD
+    ],
+    index=0
+)
 start_date = st.sidebar.date_input("Start Date", value=pd.to_datetime("2023-01-01"))
 horizon_days = st.sidebar.slider("Forecast Horizon (days)", 7, 90, 30)
 n_sims = st.sidebar.selectbox("Simulations", [1000, 5000, 10000, 50000], index=2)
@@ -33,7 +44,8 @@ def load_returns(ticker, start):
 
 # Monte Carlo engine
 def simulate_gbm(returns, n_sims, horizon):
-    mu, sigma = returns.mean(), returns.std()
+    mu = float(returns.mean())      # ← Convert to float
+    sigma = float(returns.std())    # ← Convert to float
     paths = np.zeros((n_sims, horizon+1))
     paths[:, 0] = 100
     for t in range(1, horizon+1):
@@ -47,35 +59,9 @@ if st.button("🚀 Run Simulation", type="primary"):
         returns = load_returns(ticker, start_date)
     
     if len(returns) < 30:
-        st.error("❌ Not enough data. Try a different ticker or earlier start date.")
+        st.error("❌ Not enough data for this ticker.")
+        st.info("💡 **Try**: ^GSPC (S&P 500), MAD=X (Morocco USD), or SAR=X (Saudi USD)")
+        st.stop()
     else:
         # Run simulation
-        sims = simulate_gbm(returns, n_sims, horizon_days)
-        final_values = sims[:, -1]
-        var_value = np.percentile(final_values, (1-confidence)*100)
-        
-        # Display metrics
-        col1, col2, col3 = st.columns(3)
-        col1.metric("95% VaR", f"{var_value:.2f}", f"{abs(var_value-100):.2f}% potential loss")
-        col2.metric("Mean Outcome", f"{np.mean(final_values):.2f}")
-        col3.metric("Simulations", f"{n_sims:,}")
-        
-        # Plot
-        fig, ax = plt.subplots(figsize=(10, 5))
-        ax.hist(final_values, bins=40, alpha=0.7, edgecolor='black', color='#2E86AB')
-        ax.axvline(var_value, color='#A23B72', linestyle='--', linewidth=2, label=f'{int(confidence*100)}% VaR: {var_value:.1f}')
-        ax.set_xlabel('Normalized Value')
-        ax.set_ylabel('Frequency')
-        ax.set_title(f'{ticker}: {horizon_days}-Day Risk Distribution ({n_sims:,} sims)')
-        ax.legend()
-        ax.grid(alpha=0.3)
-        st.pyplot(fig)
-        
-        # Plain-English interpretation
-        st.info(f"💡 **Interpretation**: There's a {int((1-confidence)*100)}% chance that {ticker} could lose more than **{abs(var_value-100):.2f}%** over {horizon_days} days.")
-else:
-    st.info("👈 Adjust parameters in the sidebar, then click **Run Simulation**")
-
-# Footer
-st.markdown("---")
-st.caption("By Jihan Lahmar | [View Code on GitHub](https://github.com/jihanlahmar/jihanlahmar/tree/main/projects/monte-carlo-port-risk) | [Portfolio](https://jihanlahmar.github.io/jihanlahmar/)")
+        sims
